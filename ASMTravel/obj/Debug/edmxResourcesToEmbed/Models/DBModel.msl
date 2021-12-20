@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TravelDatabaseModelStoreContainer" CdmEntityContainer="TravelEntities">
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Bill">
+        <MappingFragment StoreEntitySet="Bill">
+          <ScalarProperty Name="BillStatus" ColumnName="BillStatus" />
+          <ScalarProperty Name="BillDescription" ColumnName="BillDescription" />
+          <ScalarProperty Name="BillDateTime" ColumnName="BillDateTime" />
+          <ScalarProperty Name="BillPrice" ColumnName="BillPrice" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="CmStatus" ColumnName="CmStatus" />
+          <ScalarProperty Name="CmDescription" ColumnName="CmDescription" />
+          <ScalarProperty Name="CmEmail" ColumnName="CmEmail" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contracts">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Contract">
+        <MappingFragment StoreEntitySet="Contract">
+          <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+          <ScalarProperty Name="ContractDescription" ColumnName="ContractDescription" />
+          <ScalarProperty Name="ContractDateTime" ColumnName="ContractDateTime" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContractDetails">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.ContractDetail">
+        <MappingFragment StoreEntitySet="ContractDetails">
+          <ScalarProperty Name="CdStatus" ColumnName="CdStatus" />
+          <ScalarProperty Name="CdAmount" ColumnName="CdAmount" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="TourID" ColumnName="TourID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CsStatus" ColumnName="CsStatus" />
+          <ScalarProperty Name="CsEmail" ColumnName="CsEmail" />
+          <ScalarProperty Name="CsPhone" ColumnName="CsPhone" />
+          <ScalarProperty Name="CsAddress" ColumnName="CsAddress" />
+          <ScalarProperty Name="Passport" ColumnName="Passport" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotels">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Hotel">
+        <MappingFragment StoreEntitySet="Hotel">
+          <ScalarProperty Name="HotelStatus" ColumnName="HotelStatus" />
+          <ScalarProperty Name="HotelAmount" ColumnName="HotelAmount" />
+          <ScalarProperty Name="HotelPhone" ColumnName="HotelPhone" />
+          <ScalarProperty Name="HotelAddress" ColumnName="HotelAddress" />
+          <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+          <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationStatus" ColumnName="LocationStatus" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Places">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Place">
+        <MappingFragment StoreEntitySet="Place">
+          <ScalarProperty Name="PlaceStatus" ColumnName="PlaceStatus" />
+          <ScalarProperty Name="PlaceDescription" ColumnName="PlaceDescription" />
+          <ScalarProperty Name="PlaceAddress" ColumnName="PlaceAddress" />
+          <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlacePosts">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.PlacePost">
+        <MappingFragment StoreEntitySet="PlacePost">
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="PlacePostID" ColumnName="PlacePostID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="PostStatus" ColumnName="PostStatus" />
+          <ScalarProperty Name="PostDateTime" ColumnName="PostDateTime" />
+          <ScalarProperty Name="PostDescription" ColumnName="PostDescription" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="PostTitle" ColumnName="PostTitle" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurants">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Restaurant">
+        <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="ReStatus" ColumnName="ReStatus" />
+          <ScalarProperty Name="RePrice" ColumnName="RePrice" />
+          <ScalarProperty Name="RePhone" ColumnName="RePhone" />
+          <ScalarProperty Name="ReAddress" ColumnName="ReAddress" />
+          <ScalarProperty Name="ReName" ColumnName="ReName" />
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Service">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
+          <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staffs">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="StStatus" ColumnName="StStatus" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tours">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.Tour">
+        <MappingFragment StoreEntitySet="Tour">
+          <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+          <ScalarProperty Name="TourStatus" ColumnName="TourStatus" />
+          <ScalarProperty Name="TourAmount" ColumnName="TourAmount" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="TourName" ColumnName="TourName" />
+          <ScalarProperty Name="TourDetailsID" ColumnName="TourDetailsID" />
+          <ScalarProperty Name="TourID" ColumnName="TourID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TourDetails">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.TourDetail">
+        <MappingFragment StoreEntitySet="TourDetails">
+          <ScalarProperty Name="TdStatus" ColumnName="TdStatus" />
+          <ScalarProperty Name="TdDescription" ColumnName="TdDescription" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="TourDetailsID" ColumnName="TourDetailsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TourRegisters">
+      <EntityTypeMapping TypeName="TravelDatabaseModel.TourRegister">
+        <MappingFragment StoreEntitySet="TourRegister">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="NumberOfTicket" ColumnName="NumberOfTicket" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TourID" ColumnName="TourID" />
+          <ScalarProperty Name="TourRegisterID" ColumnName="TourRegisterID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

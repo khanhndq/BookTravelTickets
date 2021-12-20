@@ -1,0 +1,120 @@
+﻿@model IPagedList<ASMTravel.Models.Comment>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>List Comment</h2>
+
+@using (Html.BeginForm("Index", "Comment", FormMethod.Get))
+{
+    <input type="text" name="search" value="@Session["Search"].ToString()" placeholder="Enter name tour ...." />
+    <button class="btn btn-default btn-icon-notika"><i class="notika-icon notika-search"></i> Search</button>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PostID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CmEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CmDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CmStatus)
+        </th>
+        <th>Funtion</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        string getStatus = "";
+        if (item.CmStatus == 1)
+        {
+            getStatus = "Processed";
+        }
+        else if (item.CmStatus == 0)
+        {
+            getStatus = "Deleted";
+        }
+        else if (item.CmStatus == 2)
+        {
+            getStatus = "Waiting process";
+        }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CmEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CmDescription)
+            </td>
+            <td>
+                @getStatus
+            </td>
+            <td>
+                @{
+                    if (item.CmStatus != 1)
+                    {
+
+
+                        <button class="btn btn-success notika-btn-success" type="button" onclick="Accept(@item.CommentID)">Accept</button>
+
+
+                    }
+                    if (item.CmStatus != 0)
+                    {
+
+                        @*<button class="btn btn-warning notika-btn-warning" type="button" onclick="location.href=' @Url.Action("Delete", new { id = item.CommentID })'">Delete</button>*@
+                        <button class="btn btn-warning notika-btn-warning" type="button" onclick="Delete(@item.CommentID)">Delete</button>
+                    }
+
+
+                }
+            </td>
+        </tr>
+
+        <script>
+
+               function Delete(CommentID) {
+                   var link = '@Url.Action("Delete", "Comment", new { id = "CommentID" })';
+
+                          link = link.replace("CommentID", CommentID);
+
+                            var answer = confirm("Do you want to delete this comment ?")
+                            if (answer) {
+                                window.location = link;
+                            }
+                            else {
+                                return false;
+                            }
+            }
+             function Accept(CommentID) {
+                   var link = '@Url.Action("Accept", "Comment", new { id = "CommentID" })';
+
+                          link = link.replace("CommentID", CommentID);
+
+                            var answer = confirm("Do you want to accept this comment ?")
+                            if (answer) {
+                                window.location = link;
+                            }
+                            else {
+                                return false;
+                            }
+                        }
+        </script>
+    }
+
+</table>
+@Html.PagedListPager(Model, i => Url.Action("Index", "Comment", new { i, search = Request.QueryString[""] }))
+
+

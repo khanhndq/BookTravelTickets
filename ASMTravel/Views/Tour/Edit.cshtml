@@ -1,0 +1,114 @@
+﻿@model ASMTravel.Models.Tour
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Tour", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>CreateTour</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.TourID)
+    @Html.HiddenFor(model => model.ImgID)
+    @Html.HiddenFor(model => model.TourDetailsID)
+
+
+
+
+
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.TourDetailsID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourDetailsID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TourDetailsID, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TourName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.TdDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourDetail.TdDescription, new { htmlAttributes = new { @class = "form-control", rows = "20" } })
+            @Html.ValidationMessageFor(model => model.TourDetail.TdDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourAmount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TourAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.ServiceID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TourDetail.ServiceID, new SelectList(ViewBag.service, "ServiceID", "ServiceName"), "Select Service", htmlAttributes: new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.TourDetail.ServiceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.PlaceID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TourDetail.PlaceID, new SelectList(ViewBag.place, "PlaceID", "PlaceName"), "Select Service", htmlAttributes: new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.TourDetail.PlaceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image.ImgURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <img src="@Url.Content(Model.Image.ImgURL)" height="200" width="200" />
+            <input type="file" name="LoadImage" />
+            @Html.ValidationMessageFor(model => model.Image.ImgURL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-primary notika-btn-primary" type="submit">Save</button>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

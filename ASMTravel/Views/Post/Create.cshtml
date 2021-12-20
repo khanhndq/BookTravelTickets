@@ -1,0 +1,107 @@
+﻿@model ASMTravel.Models.Post
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Post</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
+    
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.PostID, new { htmlAttributes = new { @class = "form-control", @onchange = "CheckIDPost()" ,@pattern="^P\\d{3}$" , required="required", oninvalid="this.setCustomValidity('ID must start with a letter P and 3 number . Ex: P001')", oninput="setCustomValidity('')"} }) (ID = Pxxx)
+        @*<input class="form-control" type="text" id="PostID" name="PostID" onchange=" CheckIDPost()" required />*@
+        @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-sm-2"></label>
+    <div class=" col-sm-10">
+        <p id="checkID" />
+    </div>
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PostTitle, new { htmlAttributes = new { @class = "form-control" , required="required"} })
+            @Html.ValidationMessageFor(model => model.PostTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Place.PlaceName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.PlaceID, new SelectList(ViewBag.place, "PlaceID", "PlaceName"), "Select Service", htmlAttributes: new { @class = "form-control" , required="required"})
+
+            @Html.ValidationMessageFor(model => model.PlaceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="LoadImage" required/>
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PostDescription, new { htmlAttributes = new { @class = "form-control", rows = "20", required="required" } })
+            @Html.ValidationMessageFor(model => model.PostDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-primary notika-btn-primary" type="submit">Create</button>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script>
+    function CheckIDPost() {
+        $("#checkID").html("Checking...");
+        $.post("@Url.Action("CheckPostIDValid","Post")",
+            {
+                id: $("#PostID").val()
+            },
+            function (data) {
+                var checkNull = $("#PostID").val();
+                if (data == 0) {
+                    $("#checkID").html('<font color = "Green"> You can use this ID</font>');
+                    $("#PostID").css("border-color", "Green");
+                } else {
+                    $("#checkID").html('<font color = "Red"> This ID was exists!!!</font>');
+                    $("#PostID").css("border-color", "Red");
+                }
+                if (checkNull == "") {
+                    $("#checkID").html('<font color = "Black"></font>');
+                     $("#PostID").css("border-color", "#ccc");
+                }
+            }
+        )
+    }
+
+</script>

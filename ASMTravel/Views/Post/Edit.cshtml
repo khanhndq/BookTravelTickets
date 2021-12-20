@@ -1,0 +1,73 @@
+﻿@model ASMTravel.Models.Post
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Post</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PostID)
+    @Html.HiddenFor(model => model.PostDateTime)
+
+    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PostTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Place.PlaceName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*//                                                                           value      name*@
+            @Html.DropDownListFor(model => model.PlaceID, new SelectList(ViewBag.place, "PlaceID", "PlaceName"), "Select Service", htmlAttributes: new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.PlaceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <img src="@Url.Content(Model.Image)" height="200" width="200" />
+            <input type="file" name="LoadImage" />
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PostDescription, new { htmlAttributes = new { @class = "form-control", rows = "20" } })
+            @Html.ValidationMessageFor(model => model.PostDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.PostStatus)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-primary notika-btn-primary" type="submit">Save</button>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

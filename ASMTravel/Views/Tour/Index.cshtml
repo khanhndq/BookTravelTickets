@@ -1,0 +1,111 @@
+﻿@model IPagedList<ASMTravel.Models.Tour>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+<h2>Tour List</h2>
+<p>
+    @*<strong class="text-info">@Session["msg"].ToString()</strong>*@
+</p>
+<p>
+    <button class="btn btn-primary notika-btn-primary" type="button" onclick="location.href=' @Url.Action("Create")'">Create</button>
+</p>
+
+<p>
+    @using (Html.BeginForm("Index","Tour", FormMethod.Get))
+    {
+        <input type="text" name="search" value="@Session["Search"].ToString()" placeholder="Enter name tour ...."/>
+        <button class="btn btn-default btn-icon-notika" ><i class="notika-icon notika-search"></i> Search</button>
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourDetailsID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourDetail.Service.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TourDetail.Place.PlaceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Image.ImgURL)
+        </th>
+        <th>Function</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourDetailsID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Time)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourDetail.Place.PlaceName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TourDetail.Service.ServiceName)
+    </td>
+    <td>
+        <img src="@Url.Content(item.Image.ImgURL)" height="200" width="200" />
+    </td>
+    <td>
+        <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action( "Edit", new { id = item.TourID.Trim()})'">Edit</button>
+        <br />
+        <button class="btn btn-info notika-btn-info" type="button" onclick="location.href=' @Url.Action("Details", new { id = item.TourID.Trim() })'">Detail</button>
+        <br />
+        <button class="btn btn-warning notika-btn-warning" type="button" onclick="Delete('@item.TourID.Trim()')">Delete</button>
+        
+    </td>
+</tr>
+    }
+
+</table>
+<script>
+
+    function Delete(TourID) {
+        var link = '@Url.Action("Delete", new { id = "TourID" })';
+
+       link = link.replace("TourID", TourID);
+
+       var answer = confirm("Do you want to delete this tour ?")
+       if (answer) {                     
+       window.location = link;                         
+        }
+       else {
+            return false;
+       }                     
+    }
+    </script>
+
+@Html.PagedListPager(Model,i => Url.Action("Index","Tour",new { i, search = Request.QueryString[""]}))

@@ -1,0 +1,93 @@
+﻿@model IPagedList<ASMTravel.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+
+
+<h2>Post List</h2>
+
+<p>
+    <button class="btn btn-primary notika-btn-primary" type="button" onclick="location.href=' @Url.Action("Create")'">Create</button>
+</p>
+
+@using (Html.BeginForm("Index", "Post", FormMethod.Get))
+{
+    <input type="text" name="search" value="@Session["Search"].ToString()" placeholder="Enter name tour ...." />
+    <button class="btn btn-default btn-icon-notika"><i class="notika-icon notika-search"></i> Search</button>
+}
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Place.PlaceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PostTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PostDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PostDateTime)
+        </th>
+
+        <th>Function</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place.PlaceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostTitle)
+            </td>
+            <td>
+                <img src="@Url.Content(item.Image)" width="200" height="200">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDateTime)
+            </td>
+
+            <td>
+                <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action( "Edit", new { id = item.PostID.Trim()})'">Edit</button>
+                <br />
+                <button class="btn btn-info notika-btn-info" type="button" onclick="location.href=' @Url.Action("Detail", new { id = item.PostID.Trim() })'">Detail</button>
+                <br />
+                <button class="btn btn-warning notika-btn-warning" type="button" onclick="Delete('@item.PostID.Trim()')">Delete</button>
+
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+
+               function Delete(PostID) {
+                   var link = '@Url.Action("Delete", new { id = "PostID" })';
+
+                          link = link.replace("PostID", PostID);
+
+                            var answer = confirm("Do you want to delete this post ?")
+                            if (answer) {
+                                window.location = link;
+                            }
+                            else {
+                                return false;
+                            }
+    }
+</script>
+@Html.PagedListPager(Model, i => Url.Action("Index", "Post", new { i, search = Request.QueryString[""] }))

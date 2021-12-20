@@ -1,0 +1,146 @@
+﻿@model IPagedList<ASMTravel.Models.TourRegister>
+
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Register Tour List</h2>
+
+
+@using (Html.BeginForm("Index", "RegisterCustomer", FormMethod.Get))
+{
+    <input type="text" name="search" value="@Session["Search"].ToString()" placeholder="Enter name tour ...." />
+    <button class="btn btn-default btn-icon-notika"><i class="notika-icon notika-search"></i> Search</button>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Tour.TourName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DateCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NumberOfTicket)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().status)
+        </th>
+        <th>
+            Price Total
+        </th>
+        <th>
+            Function
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        double priceTotal = 0;
+
+        priceTotal = ((double)item.NumberOfTicket * (int) item.Tour.TourAmount)  ;
+        string Price = Convert.ToDecimal(priceTotal).ToString("#,##0");
+        string getStatus = "";
+        if (item.status == 1)
+        {
+            getStatus = "Processed";
+        }
+        else if (item.status == 0)
+        {
+            getStatus = "Deleted";
+        }
+        else if (item.status == 2)
+        {
+            getStatus = "Waiting process";
+        }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tour.TourName)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Phone)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <th>
+        @Html.DisplayFor(modelItem => item.DateCreate)
+    </th>
+    <td>
+        @Html.DisplayFor(modelItem => item.NumberOfTicket)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Message)
+    </td>
+    <td>
+        @getStatus
+    </td>
+    <th>
+        @Price VND
+    </th>
+    <td>
+        @{ if (item.status != 1)
+            {
+                <button class="btn btn-success notika-btn-success" type="button" onclick="Accept(@item.TourRegisterID) ">Accept</button>
+            }
+            if (item.status != 0)
+            {
+                <button class="btn btn-warning notika-btn-warning" type="button" onclick="Delete(@item.TourRegisterID)">Delete</button>
+            }
+        }
+    </td>
+</tr>
+    }
+
+</table>
+<script>
+
+               function Delete(TourRegisterID) {
+                   var link = '@Url.Action("Delete", new { id = "TourRegisterID"})';
+
+                          link = link.replace("TourRegisterID", TourRegisterID);
+
+                            var answer = confirm("Do you want to delete this tour register ?")
+                            if (answer) {
+                                window.location = link;
+                            }
+                            else {
+                                return false;
+                            }
+    }
+
+                 function Accept(TourRegisterID) {
+                   var link = '@Url.Action("Accept", new { id = "TourRegisterID" })';
+
+                          link = link.replace("TourRegisterID", TourRegisterID);
+
+                            var answer = confirm("Do you want to accept this tour register ?")
+                            if (answer) {
+                                window.location = link;
+                            }
+                            else {
+                                return false;
+                            }
+                        }
+</script>
+@Html.PagedListPager(Model, i => Url.Action("Index", "RegisterCustomer", new { i, search = Request.QueryString[""] }))

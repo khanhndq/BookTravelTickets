@@ -1,0 +1,60 @@
+﻿@model ASMTravel.Models.Post
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlaceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlaceID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Image)" height="200" width="200" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostDateTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action( "Edit", new { id = Model.PostID.Trim() })'">Edit</button>
+
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+</p>

@@ -1,0 +1,100 @@
+﻿@model IPagedList<ASMTravel.Models.Post>
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using PagedList.Mvc;
+@using PagedList;
+@{ 
+   
+}
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>blog</h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!--================Blog Area =================-->
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    @foreach (var item in Model)
+                    {
+
+                        string day = item.PostDateTime.Day.ToString();
+                        string month = item.PostDateTime.ToString("MMM");
+                        
+
+
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="@Url.Content(item.Image)" alt="" width="800" height="500">
+                                <a href="#" class="blog_item_date">
+                                    <h3>@day</h3>
+                                    <p>@month</p>
+                                </a>
+                            </div>
+
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="@Url.Action("Blog_Detail", new { id = item.PostID.Trim()})">
+                                    <h2>@item.PostTitle</h2>
+                                </a>
+
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-user"></i>  </a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> </a></li>
+                                </ul>
+                            </div>
+                        </article>
+
+                    }
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            @Html.PagedListPager(Model, i => Url.Action("Blog", "Blog", new { i }),
+                           new PagedListRenderOptions()
+                            {
+                                LiElementClasses = new string[] { "page-link" }
+                            })
+                            
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        @using (Html.BeginForm("Blog", "Blog", FormMethod.Get))
+                        {
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" name="search" id="search" class="form-control" placeholder='Search Keyword'
+                                   onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Search Keyword'">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">
+                            Search
+                        </button>
+                        }
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->

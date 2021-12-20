@@ -1,0 +1,165 @@
+﻿@model ASMTravel.Models.Tour
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "Tour", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>CreateTour</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(model => model.TourID, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+       
+        @Html.EditorFor(model => model.TourID, new { htmlAttributes = new { @class = "form-control", @onchange = "CheckIDTour()", required="required" ,@pattern="^T\\d{3}$", oninvalid="this.setCustomValidity('ID must start with a letter T and 3 number . Ex: T001')", oninput="setCustomValidity('')"} }) (ID = Txxx)
+        @Html.ValidationMessageFor(model => model.TourID, "", new { @class = "text-danger" })
+        
+
+    </div>
+    <label class="col-sm-2"></label>
+    <div class=" col-sm-10">
+        <p id="checkID" />
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.TourDetailsID, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.TourDetailsID, new { htmlAttributes = new {@class = "form-control", @onchange = "CheckIDTourDetail()", required="required",@pattern="^TD\\d{3}$", oninvalid="this.setCustomValidity('ID must start with 2 letter TD and 3 number . Ex: TD001')",oninput="setCustomValidity('')"} }) (ID = TDxxx)
+        @Html.ValidationMessageFor(model => model.TourDetailsID, "", new { @class = "text-danger" })
+    </div>
+    <label class="col-sm-2"></label>
+    <div class=" col-sm-10">
+        <p id="checkIDDetail" />
+    </div>
+</div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.TdDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourDetail.TdDescription, new { htmlAttributes = new { @class = "form-control", required="required" ,@rows = "20"} })
+            @Html.ValidationMessageFor(model => model.TourDetail.TdDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", required="required" } })
+            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourName, new { htmlAttributes = new { @class = "form-control", required="required" } })
+            @Html.ValidationMessageFor(model => model.TourName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TourAmount, new { htmlAttributes = new { @class = "form-control", required="required" } })
+            @Html.ValidationMessageFor(model => model.TourAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.ServiceID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TourDetail.ServiceID, new SelectList(ViewBag.service, "ServiceID", "ServiceName"), "Select Service", htmlAttributes: new { @class = "form-control" , required="required"})
+
+            @Html.ValidationMessageFor(model => model.TourDetail.ServiceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TourDetail.PlaceID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TourDetail.PlaceID, new SelectList(ViewBag.place, "PlaceID", "PlaceName"), "Select Service", htmlAttributes: new { @class = "form-control" , required="required"})
+
+            @Html.ValidationMessageFor(model => model.TourDetail.PlaceID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image.ImgURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="LoadImage" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-primary notika-btn-primary" type="submit">Create</button>
+        </div>
+    </div>
+</div>
+
+}
+
+<div>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+    function CheckIDTour() {
+        $("#checkID").html("Checking...");
+        $.post("@Url.Action("CheckTourIDValid","Tour")",
+            {
+                id: $("#TourID").val()
+            },
+            function (data) {
+                var checkNull = $("#TourID").val();
+                if (data == 0) {
+                    $("#checkID").html('<font color = "Green"> You can use this ID</font>'); 
+                    $("#TourID").css("border-color", "Green");
+                } else {
+                    $("#checkID").html('<font color = "Red"> This ID was exists!!!</font>');
+                    $("#TourID").css("border-color", "Red");
+                }
+                if (checkNull == "") {
+                    $("#checkID").html('<font color = "Black"></font>');
+                     $("#TourID").css("border-color", "#ccc");
+                }
+            }
+        )
+    }
+
+    function CheckIDTourDetail() {
+        $("#checkIDDetail").html("Checking...");
+        $.post("@Url.Action("CheckTourDetailIDValid","Tour")",
+            {
+                id: $("#TourDetailsID").val()
+            },
+            function (data) {
+                  var checkNull = $("#TourDetailsID").val();
+                if (data == 0) {
+                    $("#checkIDDetail").html('<font color = "Green"> You can use this ID Detail</font>'); 
+                    $("#TourDetailsID").css("border-color", "Green");
+                } else {
+                    $("#checkIDDetail").html('<font color = "Red"> This ID was exists!!!</font>');
+                    $("#TourDetailsID").css("border-color", "Red");
+                }
+                if (checkNull == "") {
+                    $("#checkIDDetail").html('<font color = "Black"></font>');
+                     $("#TourDetailsID").css("border-color", "#ccc");
+                }
+            }
+        )
+    }
+
+</script>
+

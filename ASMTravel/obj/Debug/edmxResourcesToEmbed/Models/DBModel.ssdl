@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TravelDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ContractID" Type="nchar" MaxLength="10" />
+    <Property Name="BillPrice" Type="float" />
+    <Property Name="BillDateTime" Type="datetime" Nullable="false" />
+    <Property Name="BillDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="BillStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostID" Type="nchar" MaxLength="10" />
+    <Property Name="CmEmail" Type="nchar" MaxLength="255" />
+    <Property Name="CmDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="CmStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Contract">
+    <Key>
+      <PropertyRef Name="ContractID" />
+    </Key>
+    <Property Name="ContractID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustomerID" Type="nchar" MaxLength="10" />
+    <Property Name="ContractDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ContractDescription" Type="nchar" MaxLength="255" />
+    <Property Name="ContractStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="ContractDetails">
+    <Key>
+      <PropertyRef Name="ContractID" />
+    </Key>
+    <Property Name="ContractID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TourID" Type="nchar" MaxLength="10" />
+    <Property Name="DateStart" Type="datetime" />
+    <Property Name="DateEnd" Type="datetime" />
+    <Property Name="CdAmount" Type="float" />
+    <Property Name="CdStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustomerName" Type="nchar" MaxLength="255" />
+    <Property Name="Nationality" Type="nchar" MaxLength="255" />
+    <Property Name="Passport" Type="nchar" MaxLength="255" />
+    <Property Name="CsAddress" Type="nchar" MaxLength="255" />
+    <Property Name="CsPhone" Type="nchar" MaxLength="15" />
+    <Property Name="CsEmail" Type="nchar" MaxLength="255" />
+    <Property Name="CsStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Hotel">
+    <Key>
+      <PropertyRef Name="HotelID" />
+    </Key>
+    <Property Name="HotelID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="RoomType" Type="int" />
+    <Property Name="HotelName" Type="nchar" MaxLength="255" />
+    <Property Name="HotelAddress" Type="nchar" MaxLength="255" />
+    <Property Name="HotelPhone" Type="nchar" MaxLength="15" />
+    <Property Name="HotelAmount" Type="float" />
+    <Property Name="HotelStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="ImgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImgURL" Type="varchar" MaxLength="255" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="LocationName" Type="nchar" MaxLength="255" />
+    <Property Name="LocationStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Place">
+    <Key>
+      <PropertyRef Name="PlaceID" />
+    </Key>
+    <Property Name="PlaceID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="LocationID" Type="nchar" MaxLength="10" />
+    <Property Name="HotelID" Type="nchar" MaxLength="10" />
+    <Property Name="RestaurantID" Type="nchar" MaxLength="10" />
+    <Property Name="PlaceName" Type="nchar" MaxLength="255" />
+    <Property Name="PlaceAddress" Type="nchar" MaxLength="255" />
+    <Property Name="PlaceDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="PlaceStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="PlacePost">
+    <Key>
+      <PropertyRef Name="PlacePostID" />
+    </Key>
+    <Property Name="PlacePostID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PlaceID" Type="nchar" MaxLength="10" />
+    <Property Name="PostID" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PlaceID" Type="nchar" MaxLength="10" />
+    <Property Name="PostTitle" Type="nchar" MaxLength="255" />
+    <Property Name="Image" Type="nchar" MaxLength="255" />
+    <Property Name="PostDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="PostDateTime" Type="datetime" Nullable="false" />
+    <Property Name="PostStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="RestaurantID" />
+    </Key>
+    <Property Name="RestaurantID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ReName" Type="nchar" MaxLength="255" />
+    <Property Name="ReAddress" Type="nchar" MaxLength="255" />
+    <Property Name="RePhone" Type="nchar" MaxLength="15" />
+    <Property Name="RePrice" Type="float" />
+    <Property Name="ReStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ServiceName" Type="nchar" MaxLength="255" />
+    <Property Name="ServiceDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="ServiceStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="StaffID" />
+    </Key>
+    <Property Name="StaffID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Fullname" Type="nchar" MaxLength="255" />
+    <Property Name="Sex" Type="nchar" MaxLength="10" />
+    <Property Name="Address" Type="nchar" MaxLength="255" />
+    <Property Name="Email" Type="nchar" MaxLength="255" />
+    <Property Name="Phone" Type="nchar" MaxLength="15" />
+    <Property Name="password" Type="nchar" MaxLength="255" />
+    <Property Name="username" Type="nchar" MaxLength="255" />
+    <Property Name="Role" Type="int" />
+    <Property Name="StStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="Tour">
+    <Key>
+      <PropertyRef Name="TourID" />
+    </Key>
+    <Property Name="TourID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TourDetailsID" Type="nchar" MaxLength="10" />
+    <Property Name="TourName" Type="nchar" MaxLength="255" />
+    <Property Name="Time" Type="nchar" MaxLength="50" />
+    <Property Name="TourAmount" Type="float" />
+    <Property Name="TourStatus" Type="int" />
+    <Property Name="ImgID" Type="int" />
+  </EntityType>
+  <EntityType Name="TourDetails">
+    <Key>
+      <PropertyRef Name="TourDetailsID" />
+    </Key>
+    <Property Name="TourDetailsID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PlaceID" Type="nchar" MaxLength="10" />
+    <Property Name="ServiceID" Type="nchar" MaxLength="10" />
+    <Property Name="TdDescription" Type="nchar" MaxLength="1000" />
+    <Property Name="TdStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="TourRegister">
+    <Key>
+      <PropertyRef Name="TourRegisterID" />
+    </Key>
+    <Property Name="TourRegisterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TourID" Type="nchar" MaxLength="10" />
+    <Property Name="Name" Type="nchar" MaxLength="255" />
+    <Property Name="DateCreate" Type="datetime" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="255" />
+    <Property Name="Phone" Type="nchar" MaxLength="15" />
+    <Property Name="Email" Type="nchar" MaxLength="255" />
+    <Property Name="NumberOfTicket" Type="int" />
+    <Property Name="Message" Type="text" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <Association Name="FK__Comment__PostID__3D2915A8">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Post__PlaceID__30C33EC3">
+    <End Role="Place" Type="Self.Place" Multiplicity="0..1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Post__PlaceID__32AB8735">
+    <End Role="Place" Type="Self.Place" Multiplicity="0..1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tour__ImgID__31B762FC">
+    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Tour">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tour__TourDetail__2FCF1A8A">
+    <End Role="TourDetails" Type="Self.TourDetails" Multiplicity="0..1" />
+    <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TourDetails">
+        <PropertyRef Name="TourDetailsID" />
+      </Principal>
+      <Dependent Role="Tour">
+        <PropertyRef Name="TourDetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourDetai__Place__339FAB6E">
+    <End Role="Place" Type="Self.Place" Multiplicity="0..1" />
+    <End Role="TourDetails" Type="Self.TourDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="TourDetails">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourDetai__Servi__367C1819">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="TourDetails" Type="Self.TourDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="TourDetails">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourRegis__TourI__3A4CA8FD">
+    <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
+    <End Role="TourRegister" Type="Self.TourRegister" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tour">
+        <PropertyRef Name="TourID" />
+      </Principal>
+      <Dependent Role="TourRegister">
+        <PropertyRef Name="TourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TravelDatabaseModelStoreContainer">
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contract" EntityType="Self.Contract" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContractDetails" EntityType="Self.ContractDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlacePost" EntityType="Self.PlacePost" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TourDetails" EntityType="Self.TourDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TourRegister" EntityType="Self.TourRegister" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Comment__PostID__3D2915A8" Association="Self.FK__Comment__PostID__3D2915A8">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Post__PlaceID__30C33EC3" Association="Self.FK__Post__PlaceID__30C33EC3">
+      <End Role="Place" EntitySet="Place" />
+      <End Role="Post" EntitySet="Post" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Post__PlaceID__32AB8735" Association="Self.FK__Post__PlaceID__32AB8735">
+      <End Role="Place" EntitySet="Place" />
+      <End Role="Post" EntitySet="Post" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tour__ImgID__31B762FC" Association="Self.FK__Tour__ImgID__31B762FC">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Tour" EntitySet="Tour" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tour__TourDetail__2FCF1A8A" Association="Self.FK__Tour__TourDetail__2FCF1A8A">
+      <End Role="TourDetails" EntitySet="TourDetails" />
+      <End Role="Tour" EntitySet="Tour" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourDetai__Place__339FAB6E" Association="Self.FK__TourDetai__Place__339FAB6E">
+      <End Role="Place" EntitySet="Place" />
+      <End Role="TourDetails" EntitySet="TourDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourDetai__Servi__367C1819" Association="Self.FK__TourDetai__Servi__367C1819">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="TourDetails" EntitySet="TourDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourRegis__TourI__3A4CA8FD" Association="Self.FK__TourRegis__TourI__3A4CA8FD">
+      <End Role="Tour" EntitySet="Tour" />
+      <End Role="TourRegister" EntitySet="TourRegister" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

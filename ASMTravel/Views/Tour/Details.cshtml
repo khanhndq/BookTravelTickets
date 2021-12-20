@@ -1,0 +1,98 @@
+﻿@model ASMTravel.Models.Tour
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+
+    string Price = Convert.ToDecimal(Model.TourAmount).ToString("#,##0");
+}
+<h2>Details</h2>
+
+<div>
+    <h4>CreateTour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TourID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDetailsID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourDetailsID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TourName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDetail.TdDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourDetail.TdDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDetail.Service.ServiceName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourDetail.Service.ServiceName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDetail.Place.PlaceName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourDetail.Place.PlaceName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourAmount)
+        </dt>
+
+        <dd>
+            @Price VND
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image.ImgURL)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Image.ImgURL)" height="200" width="200" />
+
+        </dd>
+
+
+
+
+
+
+
+
+    </dl>
+</div>
+<p>
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action( "Edit", new { id = Model.TourID.Trim() })'">Edit</button>
+
+    <button class="btn btn-success notika-btn-success" type="button" onclick="location.href=' @Url.Action("Index", new { search = Session["Search"].ToString() })'">Back to List</button>
+
+</p>

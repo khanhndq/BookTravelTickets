@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TravelDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TravelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bills" EntityType="TravelDatabaseModel.Bill" />
+    <EntitySet Name="Comments" EntityType="TravelDatabaseModel.Comment" />
+    <EntitySet Name="Contracts" EntityType="TravelDatabaseModel.Contract" />
+    <EntitySet Name="ContractDetails" EntityType="TravelDatabaseModel.ContractDetail" />
+    <EntitySet Name="Customers" EntityType="TravelDatabaseModel.Customer" />
+    <EntitySet Name="Hotels" EntityType="TravelDatabaseModel.Hotel" />
+    <EntitySet Name="Images" EntityType="TravelDatabaseModel.Image" />
+    <EntitySet Name="Locations" EntityType="TravelDatabaseModel.Location" />
+    <EntitySet Name="Places" EntityType="TravelDatabaseModel.Place" />
+    <EntitySet Name="PlacePosts" EntityType="TravelDatabaseModel.PlacePost" />
+    <EntitySet Name="Posts" EntityType="TravelDatabaseModel.Post" />
+    <EntitySet Name="Restaurants" EntityType="TravelDatabaseModel.Restaurant" />
+    <EntitySet Name="Services" EntityType="TravelDatabaseModel.Service" />
+    <EntitySet Name="Staffs" EntityType="TravelDatabaseModel.Staff" />
+    <EntitySet Name="Tours" EntityType="TravelDatabaseModel.Tour" />
+    <EntitySet Name="TourDetails" EntityType="TravelDatabaseModel.TourDetail" />
+    <EntitySet Name="TourRegisters" EntityType="TravelDatabaseModel.TourRegister" />
+    <AssociationSet Name="FK__Comment__PostID__3D2915A8" Association="TravelDatabaseModel.FK__Comment__PostID__3D2915A8">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tour__ImgID__31B762FC" Association="TravelDatabaseModel.FK__Tour__ImgID__31B762FC">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Tour" EntitySet="Tours" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Post__PlaceID__30C33EC3" Association="TravelDatabaseModel.FK__Post__PlaceID__30C33EC3">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Post__PlaceID__32AB8735" Association="TravelDatabaseModel.FK__Post__PlaceID__32AB8735">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourDetai__Place__339FAB6E" Association="TravelDatabaseModel.FK__TourDetai__Place__339FAB6E">
+      <End Role="Place" EntitySet="Places" />
+      <End Role="TourDetail" EntitySet="TourDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourDetai__Servi__367C1819" Association="TravelDatabaseModel.FK__TourDetai__Servi__367C1819">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="TourDetail" EntitySet="TourDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tour__TourDetail__2FCF1A8A" Association="TravelDatabaseModel.FK__Tour__TourDetail__2FCF1A8A">
+      <End Role="TourDetail" EntitySet="TourDetails" />
+      <End Role="Tour" EntitySet="Tours" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TourRegis__TourI__3A4CA8FD" Association="TravelDatabaseModel.FK__TourRegis__TourI__3A4CA8FD">
+      <End Role="Tour" EntitySet="Tours" />
+      <End Role="TourRegister" EntitySet="TourRegisters" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ContractID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="BillPrice" Type="Double" />
+    <Property Name="BillDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BillDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="BillStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CmEmail" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="CmDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="CmStatus" Type="Int32" />
+    <NavigationProperty Name="Post" Relationship="TravelDatabaseModel.FK__Comment__PostID__3D2915A8" FromRole="Comment" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Contract">
+    <Key>
+      <PropertyRef Name="ContractID" />
+    </Key>
+    <Property Name="ContractID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CustomerID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ContractDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ContractDescription" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="ContractStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ContractDetail">
+    <Key>
+      <PropertyRef Name="ContractID" />
+    </Key>
+    <Property Name="ContractID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TourID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DateStart" Type="DateTime" Precision="3" />
+    <Property Name="DateEnd" Type="DateTime" Precision="3" />
+    <Property Name="CdAmount" Type="Double" />
+    <Property Name="CdStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Nationality" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Passport" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="CsAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="CsPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="CsEmail" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="CsStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Hotel">
+    <Key>
+      <PropertyRef Name="HotelID" />
+    </Key>
+    <Property Name="HotelID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="RoomType" Type="Int32" />
+    <Property Name="HotelName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="HotelAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="HotelPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="HotelAmount" Type="Double" />
+    <Property Name="HotelStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="ImgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImgURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Tours" Relationship="TravelDatabaseModel.FK__Tour__ImgID__31B762FC" FromRole="Image" ToRole="Tour" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="LocationName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="LocationStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Place">
+    <Key>
+      <PropertyRef Name="PlaceID" />
+    </Key>
+    <Property Name="PlaceID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="LocationID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HotelID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="RestaurantID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceStatus" Type="Int32" />
+    <NavigationProperty Name="Posts" Relationship="TravelDatabaseModel.FK__Post__PlaceID__30C33EC3" FromRole="Place" ToRole="Post" />
+    <NavigationProperty Name="Posts1" Relationship="TravelDatabaseModel.FK__Post__PlaceID__32AB8735" FromRole="Place" ToRole="Post" />
+    <NavigationProperty Name="TourDetails" Relationship="TravelDatabaseModel.FK__TourDetai__Place__339FAB6E" FromRole="Place" ToRole="TourDetail" />
+  </EntityType>
+  <EntityType Name="PlacePost">
+    <Key>
+      <PropertyRef Name="PlacePostID" />
+    </Key>
+    <Property Name="PlacePostID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PostID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PostTitle" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="PostDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="PostDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PostStatus" Type="Int32" />
+    <NavigationProperty Name="Comments" Relationship="TravelDatabaseModel.FK__Comment__PostID__3D2915A8" FromRole="Post" ToRole="Comment" />
+    <NavigationProperty Name="Place" Relationship="TravelDatabaseModel.FK__Post__PlaceID__30C33EC3" FromRole="Post" ToRole="Place" />
+    <NavigationProperty Name="Place1" Relationship="TravelDatabaseModel.FK__Post__PlaceID__32AB8735" FromRole="Post" ToRole="Place" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="RestaurantID" />
+    </Key>
+    <Property Name="RestaurantID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ReName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="ReAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="RePhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="RePrice" Type="Double" />
+    <Property Name="ReStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ServiceName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="ServiceDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="ServiceStatus" Type="Int32" />
+    <NavigationProperty Name="TourDetails" Relationship="TravelDatabaseModel.FK__TourDetai__Servi__367C1819" FromRole="Service" ToRole="TourDetail" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="StaffID" />
+    </Key>
+    <Property Name="StaffID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="username" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Role" Type="Int32" />
+    <Property Name="StStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tour">
+    <Key>
+      <PropertyRef Name="TourID" />
+    </Key>
+    <Property Name="TourID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TourDetailsID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TourName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TourAmount" Type="Double" />
+    <Property Name="TourStatus" Type="Int32" />
+    <Property Name="ImgID" Type="Int32" />
+    <NavigationProperty Name="Image" Relationship="TravelDatabaseModel.FK__Tour__ImgID__31B762FC" FromRole="Tour" ToRole="Image" />
+    <NavigationProperty Name="TourDetail" Relationship="TravelDatabaseModel.FK__Tour__TourDetail__2FCF1A8A" FromRole="Tour" ToRole="TourDetail" />
+    <NavigationProperty Name="TourRegisters" Relationship="TravelDatabaseModel.FK__TourRegis__TourI__3A4CA8FD" FromRole="Tour" ToRole="TourRegister" />
+  </EntityType>
+  <EntityType Name="TourDetail">
+    <Key>
+      <PropertyRef Name="TourDetailsID" />
+    </Key>
+    <Property Name="TourDetailsID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PlaceID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ServiceID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TdDescription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="TdStatus" Type="Int32" />
+    <NavigationProperty Name="Place" Relationship="TravelDatabaseModel.FK__TourDetai__Place__339FAB6E" FromRole="TourDetail" ToRole="Place" />
+    <NavigationProperty Name="Service" Relationship="TravelDatabaseModel.FK__TourDetai__Servi__367C1819" FromRole="TourDetail" ToRole="Service" />
+    <NavigationProperty Name="Tours" Relationship="TravelDatabaseModel.FK__Tour__TourDetail__2FCF1A8A" FromRole="TourDetail" ToRole="Tour" />
+  </EntityType>
+  <EntityType Name="TourRegister">
+    <Key>
+      <PropertyRef Name="TourRegisterID" />
+    </Key>
+    <Property Name="TourRegisterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TourID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="NumberOfTicket" Type="Int32" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <NavigationProperty Name="Tour" Relationship="TravelDatabaseModel.FK__TourRegis__TourI__3A4CA8FD" FromRole="TourRegister" ToRole="Tour" />
+  </EntityType>
+  <Association Name="FK__Comment__PostID__3D2915A8">
+    <End Type="TravelDatabaseModel.Post" Role="Post" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tour__ImgID__31B762FC">
+    <End Type="TravelDatabaseModel.Image" Role="Image" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.Tour" Role="Tour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Tour">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Post__PlaceID__30C33EC3">
+    <End Type="TravelDatabaseModel.Place" Role="Place" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.Post" Role="Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Post__PlaceID__32AB8735">
+    <End Type="TravelDatabaseModel.Place" Role="Place" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.Post" Role="Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourDetai__Place__339FAB6E">
+    <End Type="TravelDatabaseModel.Place" Role="Place" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.TourDetail" Role="TourDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="TourDetail">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourDetai__Servi__367C1819">
+    <End Type="TravelDatabaseModel.Service" Role="Service" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.TourDetail" Role="TourDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="TourDetail">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tour__TourDetail__2FCF1A8A">
+    <End Type="TravelDatabaseModel.TourDetail" Role="TourDetail" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.Tour" Role="Tour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TourDetail">
+        <PropertyRef Name="TourDetailsID" />
+      </Principal>
+      <Dependent Role="Tour">
+        <PropertyRef Name="TourDetailsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TourRegis__TourI__3A4CA8FD">
+    <End Type="TravelDatabaseModel.Tour" Role="Tour" Multiplicity="0..1" />
+    <End Type="TravelDatabaseModel.TourRegister" Role="TourRegister" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tour">
+        <PropertyRef Name="TourID" />
+      </Principal>
+      <Dependent Role="TourRegister">
+        <PropertyRef Name="TourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

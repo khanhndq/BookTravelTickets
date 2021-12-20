@@ -1,0 +1,206 @@
+﻿@model ASMTravel.Models.Tour
+
+@{
+    ViewBag.Title = "Destination_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    string Price = Convert.ToDecimal(Model.TourAmount).ToString("#,##0");
+}
+<div class="destination_banner_wrap overlay">
+    <div class="destination_text text-center">
+
+        <h3>@Model.TourName</h3>
+
+    </div>
+</div>
+
+<div class="destination_details_info">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-9">
+                <div class="destination_info">
+                    <img src="@Url.Content(Model.Image.ImgURL)" width="1000" height="800" />
+
+                    <h3>Description</h3>
+                    <p>@Model.TourDetail.TdDescription</p>
+
+                </div>
+                <div class="section-top-border">
+                    <h3 class="mb-30">Information Tour</h3>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="single-defination">
+                                <h4 class="mb-20">Travel Time</h4>
+                                <p>
+                                    @Model.Time
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single-defination">
+                                <h4 class="mb-20">Price Tour</h4>
+                                <p>
+                                    @Price VND/Vé
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single-defination">
+                                <h4 class="mb-20">Place And Service</h4>
+                                <p>
+                                    Place : @Model.TourDetail.Place.PlaceName
+                                </p>
+                                <p>
+                                    Service : @Model.TourDetail.Service.ServiceName
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bordered_1px"></div>
+                <div class="comment-form">
+                    <h3>Contact for join</h3>
+                    @using (Html.BeginForm("Register", "RegisterCustomer", FormMethod.Post))
+                    {
+                        <input type="hidden" name="TourID" id="TourID" value="@Url.Content(Model.TourID)" />
+
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="Name" id="Name" type="text" placeholder="Your Name*" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="Address" id="Address" type="text" placeholder="Your Address*" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="Phone" id="Phone" type="text" placeholder="Your Phone*" pattern = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="Email" id="Email" type="email" placeholder="Your Email*" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" min="1" name="NumberOfTicket" id="NumberOfTicket" type="number" pattern="^[1-9]\d*$"  placeholder="Enter number of ticket*" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea class="form-control w-100" name="Message" id="Message" cols="30" rows="9"
+                                              placeholder="Write Message" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="button button-contactForm btn_1 boxed-btn">submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- newletter_area_start  -->
+<div class="newletter_area overlay">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-10">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter_text">
+                            <h4>Subscribe Our Newsletter</h4>
+                            <p>
+                                Subscribe newsletter to get offers and about
+                                new places to discover.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="mail_form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-9 col-md-8">
+                                    <div class="newsletter_field">
+                                        <input type="email" placeholder="Your mail">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <div class="newsletter_btn">
+                                        <button class="boxed-btn4 " type="submit">Subscribe</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- newletter_area_end  -->
+
+<div class="popular_places_area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section_title text-center mb_70">
+                    <h3>More Places</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in ViewBag.tour)
+            {
+                string price = Convert.ToDecimal(item.TourAmount).ToString("#,##0");
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_place">
+                        <div class="thumb">
+                            <img src="@Url.Content(item.Image.ImgURL)" alt="">
+                            <a href="#" class="prise">@price VND</a>
+                        </div>
+                        <div class="place_info">
+                            <a href="@Url.Action("Destination_Detail", new { id = item.TourID.Trim() })"><h3>@item.TourName</h3></a>
+                            <p>@item.TourDetail.Place.PlaceName</p>
+                            <div class="rating_days d-flex justify-content-between">
+                                <span class="d-flex justify-content-center align-items-center">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <a href="#">(20 Review)</a>
+                                </span>
+                                <div class="days">
+                                    <i class="fa fa-clock-o"></i>
+                                    <a href="#">@item.Time</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".Name").on('keydown paste', function (e) {
+        e.preventDefault();
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+

@@ -1,0 +1,76 @@
+﻿@model IPagedList<ASMTravel.Models.Staff>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<h2>Account Staff List</h2>
+
+<p>
+    <button class="btn btn-primary notika-btn-primary" type="button" onclick="location.href=' @Url.Action("Create")'">Create</button>
+</p>
+
+@using (Html.BeginForm("Index", "Staff", FormMethod.Get))
+{
+    <input type="text" name="search" value="@Session["Search"].ToString()" placeholder="Enter name tour ...." />
+    <button class="btn btn-default btn-icon-notika"><i class="notika-icon notika-search"></i> Search</button>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Fullname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Phone)
+        </th>
+
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+
+            
+
+
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, i => Url.Action("Index", "Staff", new { i, search = Request.QueryString[""] }))

@@ -1,0 +1,136 @@
+﻿@model ASMTravel.Models.Post
+@{
+    ViewBag.Title = "Blog_Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int i = 0;
+}
+@foreach (var item in ViewBag.comment)
+{
+    if (Model.PostID == item.PostID && item.CmStatus == 1)
+    {
+        i++;
+    }
+}
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text text-center">
+                    <h3>Single blog</h3>
+                    <p>Pixel perfect design with awesome contents</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+                    <div class="feature-img">
+                        <img class="img-fluid" src="@Url.Content(Model.Image)" alt="" width="1000" height="1000">
+                    </div>
+                    <div class="blog_details">
+                        <h2>
+                            @Model.PostTitle
+                        </h2>
+                        <p class="excert">
+                            @Model.PostDescription
+                        </p>
+                    </div>
+                </div>
+                <div class="navigation-top">
+                    <div class="d-sm-flex justify-content-between text-center">
+                        <p class="like-info">
+                            <span class="align-middle"><i class="fa fa-calendar aria-hidden="true"></i></span> @Model.PostDateTime.ToString("dd-MM-yyyy")
+                        </p>
+                        <div class="col-sm-4 text-center my-2 my-sm-0">
+                            <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> @i Comments</p>
+                        </div>
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+
+                    </div>
+
+                    <div class="comments-area">
+
+                        <h4>@i Comments</h4>
+                        @foreach (var item in ViewBag.comment)
+                        {
+                            if (Model.PostID == item.PostID && item.CmStatus == 1)
+                            {
+                    
+                                <div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="~/Assets/User/img/comment/comment_2.png" alt="">
+                                            </div>
+                                            <div class="desc">
+                                                <p class="comment">
+                                                    @item.CmDescription
+                                                </p>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>
+                                                            @item.CmEmail
+                                                        </h5>
+
+                                                    </div>
+                                                    <div class="reply-btn">
+                                                        <a href="#" class="btn-reply text-uppercase">reply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                    <div class="comment-form">
+                        <h4>Leave a Reply</h4>
+
+                        @using (Html.BeginForm("SendComment" , "Comment", FormMethod.Post))
+                        {
+                            <input class="form-control" name="PostID" id="PostID" type="hidden" value="@Url.Content(Model.PostID)">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="CmEmail" id="CmEmail" type="text" placeholder="Email Or Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="CmDescription" id="CmDescription" cols="30" rows="9"
+                                                  placeholder="Write Comment" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">Send Message</button>
+                            </div>
+
+
+                         }
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--================ Blog Area end =================-->
